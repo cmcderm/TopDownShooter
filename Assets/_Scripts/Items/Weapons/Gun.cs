@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Gun : MonoBehaviour {
+public abstract class Gun : MonoBehaviour, Item {
 
     public GameObject EndOfBarrel;
     public GameObject HoldPoint;
