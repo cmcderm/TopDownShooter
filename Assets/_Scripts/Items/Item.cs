@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item  : ScriptableObject{
-    int ItemID;
-    int Quantity;
+[CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
+public class Item  : ScriptableObject {
+    public int itemID = -1;
+    new public string name = "New Item";
+    public Sprite icon = null;
 }

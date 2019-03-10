@@ -21,16 +21,16 @@ public class Inventory : MonoBehaviour {
         }
 	}
 
-    void Show() {
-
-    }
-
     void AddItem(Item item) {
 
     }
 	
     void AddItem(int id, int quantity) {
-        Item i = new Item(id, quantity);
+        
+    }
+
+    void RemoveItem(Item item) {
+
     }
 
 	// Update is called once per frame

@@ -19,6 +19,8 @@ public class TopDownPlayerController : MonoBehaviour {
         MouseLook();
 
         Move();
+
+        CheckForInteractable();
     }
 
     void Move() {
@@ -39,5 +41,15 @@ public class TopDownPlayerController : MonoBehaviour {
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         Quaternion rot = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = rot;
+    }
+
+    void CheckForInteractable() {
+        GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
+
+        float closestDot = 0f;
+        GameObject closest;
+        foreach (GameObject inter in interactables) {
+            Vector3.Dot(transform.forward, )
+        }
     }
 }
