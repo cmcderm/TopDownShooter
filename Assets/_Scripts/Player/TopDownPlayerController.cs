@@ -47,9 +47,19 @@ public class TopDownPlayerController : MonoBehaviour {
         GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
 
         float closestDot = 0f;
+        float newDot;
         GameObject closest;
         foreach (GameObject inter in interactables) {
-            Vector3.Dot(transform.forward, )
+            Debug.DrawRay(transform.position, inter.transform.position - transform.position);
+            Debug.Log("Dot toward " + inter.name + " " + Mathf.Abs(Vector3.Dot(transform.right.normalized, (inter.transform.position - transform.position).normalized)));
+            if () {
+                newDot = Mathf.Abs(Vector3.Dot(transform.right.normalized, (inter.transform.position - transform.position).normalized));
+                if (newDot > closestDot) {
+                    closestDot = newDot;
+                    closest = inter;
+                }
+            }
         }
+
     }
 }
