@@ -52,7 +52,7 @@ public class TopDownPlayerController : MonoBehaviour {
         foreach (GameObject inter in interactables) {
             Debug.DrawRay(transform.position, inter.transform.position - transform.position);
             Debug.Log("Dot toward " + inter.name + " " + Mathf.Abs(Vector3.Dot(transform.right.normalized, (inter.transform.position - transform.position).normalized)));
-			newDot = Vector3.Dot(transform.right.normalized, (inter.transform.position - transform.position).normalized);
+            newDot = Vector3.Dot(transform.right.normalized, (inter.transform.position - transform.position).normalized);
             if (newDot > closestDot) {
                 closestDot = newDot;
                 closest = inter;
