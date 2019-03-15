@@ -10,20 +10,27 @@ public class TopDownPlayerController : MonoBehaviour {
 
     //Components
     Rigidbody2D _rigid;
+    
+    //Interactable
+    Interactable interactFocus;
 
-	void Start () {
+    void Start () {
         _rigid = GetComponent<Rigidbody2D>();
-	}
+    }
 	
 	void Update () {
         MouseLook();
 
         Move();
 
-        CheckForInteractable();
+        interactFocus = CheckForInteractable();
+	
+        if(Input.GetKeyDown(KeyCode.E)){
+		    interactFocus.interact();
+        }
     }
 
-    void Move() {
+    private void Move() {
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
 
@@ -36,14 +43,14 @@ public class TopDownPlayerController : MonoBehaviour {
         _rigid.MovePosition(new Vector2(_rigid.position.x + (x * Time.deltaTime * moveSpeed), _rigid.position.y + (y * Time.deltaTime * moveSpeed)));
     }
 
-    void MouseLook() {
+    private void MouseLook() {
         Vector3 lookDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         Quaternion rot = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = rot;
     }
 
-    void CheckForInteractable() {
+    private GameObject CheckForInteractable() {
         GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
 
         float closestDot = 0f;
@@ -57,6 +64,12 @@ public class TopDownPlayerController : MonoBehaviour {
                 closestDot = newDot;
                 closest = inter;
             }
+        }
+        if(closest != null){
+            Debug.Log("Selecting interactable: " + closest.name);
+            return closest.GetComponent<Interactable>();
+        } else {
+            return null;
         }
     }
 }
