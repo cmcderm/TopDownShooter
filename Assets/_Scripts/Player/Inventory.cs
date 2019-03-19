@@ -14,27 +14,61 @@ public class Inventory : MonoBehaviour {
     [SerializeField]
     private int height = 4;
 
-	// Use this for initialization
-	void Start () {
+    void Start () {
         for(int i = 0; i < height; i++) {
             _inv[i] = new Item[width];
         }
-	}
+    }
+    
+    //Get Item by description (find handgun ammo for reloading for example)
+    Item GetItem(String desc){
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                if(_inv[i][j] != null && _inv[i][j].name = desc){
+                    return _inv[i][j];
+                }
+            }
+        }
+        return new Item("No Item");
+    }
+    
+    //Get Item by place in inventory (for when a clicked item is acted on)
+    Item GetItem(int x, int y){
+        if(_inv[x][y] != null){
+            return _inv[x][y];
+        } else {
+            return new Item("No Item");
+        }
+    }
 
-    void AddItem(Item item) {
-
+    //Return true if successful, false if inventory full
+    bool AddItem(Item item) {
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                if(_inv[i][j] = null){
+                    _inv[i][j] = item;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 	
-    void AddItem(int id, int quantity) {
-        
+    bool AddItem(int id, int quantity) {
+        return AddItem(new Item(id, quantity));
     }
 
     void RemoveItem(Item item) {
-
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                if(_inv[i][j] != null && _inv[i][j].name = desc){
+                    _inv[i][j] = null;
+                }
+            }
+        }
     }
-
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    
+    void RemoveItem(int x, int y){
+        _inv[x][y] = null;
+    }
 }
