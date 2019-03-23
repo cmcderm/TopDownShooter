@@ -11,7 +11,7 @@ public class Interactable : MonoBehaviour {
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 
-    void interact() {
+    public void interact() {
         Debug.Log("Interacted with " + gameObject.name);
     }
 }
