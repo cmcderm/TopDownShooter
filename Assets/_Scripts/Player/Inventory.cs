@@ -6,6 +6,8 @@ public class Inventory : MonoBehaviour {
 
     private Item[][] _inv;
 
+    public ItemManager _itemManager;
+
     [SerializeField]
     private int invSize = 8;
 
@@ -21,15 +23,15 @@ public class Inventory : MonoBehaviour {
     }
     
     //Get Item by description (find handgun ammo for reloading for example)
-    Item GetItem(String desc){
+    Item GetItem(string desc){
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
-                if(_inv[i][j] != null && _inv[i][j].name = desc){
+                if(_inv[i][j] != null && _inv[i][j].name == desc){
                     return _inv[i][j];
                 }
             }
         }
-        return new Item("No Item");
+        return _itemManager.CreateItem(-1);
     }
     
     //Get Item by place in inventory (for when a clicked item is acted on)
@@ -37,7 +39,7 @@ public class Inventory : MonoBehaviour {
         if(_inv[x][y] != null){
             return _inv[x][y];
         } else {
-            return new Item("No Item");
+            return _itemManager.CreateItem(-1);
         }
     }
 
@@ -55,13 +57,13 @@ public class Inventory : MonoBehaviour {
     }
 	
     bool AddItem(int id, int quantity) {
-        return AddItem(new Item(id, quantity));
+        return AddItem(_itemManager.CreateItem(id, quantity));
     }
 
-    void RemoveItem(Item item) {
+    void RemoveItem(Item item, int quantity) {
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
-                if(_inv[i][j] != null && _inv[i][j].name = desc){
+                if(_inv[i][j] != null && _inv[i][j].name == item.name){
                     _inv[i][j] = null;
                 }
             }

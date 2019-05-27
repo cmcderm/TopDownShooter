@@ -19,9 +19,9 @@ public class TopDownPlayerController : MonoBehaviour {
     }
 	
 	void Update () {
-        MouseLook();
-
         Move();
+
+        MouseLook();
 
         interactFocus = CheckForInteractable();
 	
