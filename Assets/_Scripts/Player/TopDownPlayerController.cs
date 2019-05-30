@@ -19,10 +19,6 @@ public class TopDownPlayerController : MonoBehaviour {
     }
 	
 	void Update () {
-        Move();
-
-        MouseLook();
-
         interactFocus = CheckForInteractable();
 	
         if(Input.GetKeyDown(KeyCode.E)){
@@ -30,7 +26,13 @@ public class TopDownPlayerController : MonoBehaviour {
         }
     }
 
-    private void Move() {
+    private void FixedUpdate() {
+        Vector2 newPosition = Move();
+
+        Look(newPosition, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+    }
+
+    private Vector2 Move() {
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
 
@@ -40,14 +42,20 @@ public class TopDownPlayerController : MonoBehaviour {
             x = moveNormal.x;
             y = moveNormal.y;
         }
-        _rigid.MovePosition(new Vector2(_rigid.position.x + (x * Time.deltaTime * moveSpeed), _rigid.position.y + (y * Time.deltaTime * moveSpeed)));
+
+        Vector2 newPosition = new Vector2(_rigid.position.x + (x * Time.deltaTime * moveSpeed), _rigid.position.y + (y * Time.deltaTime * moveSpeed));
+        _rigid.MovePosition(newPosition);
+
+        return newPosition;
     }
 
-    private void MouseLook() {
-        Vector3 lookDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+    private void Look(Vector2 position, Vector2 target) {
+        Vector3 lookDir = target - position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         Quaternion rot = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = rot;
+
+        Debug.DrawLine(transform.position, lookDir);
     }
 
     private Interactable CheckForInteractable() {
