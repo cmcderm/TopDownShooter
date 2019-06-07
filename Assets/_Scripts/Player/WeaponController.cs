@@ -14,7 +14,7 @@ public class WeaponController : MonoBehaviour {
         if (Input.GetMouseButtonDown(0)) {
             currWeapon.Fire();
         }
-        Debug.DrawRay(transform.position, transform.right * 20f, Color.red);
+        //Debug.DrawRay(transform.position, transform.right * 20f, Color.red);
     }
 
     void SetGun(Gun newGun) {
