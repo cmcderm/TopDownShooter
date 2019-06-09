@@ -7,6 +7,7 @@ public class TopDownPlayerController : MonoBehaviour {
 
     //Input
     Vector2 movement;
+    Vector2 mousePos;
 
     //Values
     float moveSpeed = 8f;
@@ -22,9 +23,12 @@ public class TopDownPlayerController : MonoBehaviour {
     }
 	
 	void Update () {
-        Look(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
-
         movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 newPosition = Move(movement);
+
+        Look(newPosition, mousePos);
 
         interactFocus = CheckForInteractable();
 	
@@ -34,7 +38,7 @@ public class TopDownPlayerController : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        Move(movement);
+
     }
 
     private Vector2 Move(Vector2 movement) {
@@ -52,12 +56,13 @@ public class TopDownPlayerController : MonoBehaviour {
     }
 
     private void Look(Vector2 position, Vector2 target) {
-        Vector3 lookDir = position - target;
+        Vector3 lookDir = target - position;
+
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         Quaternion rot = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = rot;
 
-        Debug.DrawLine(transform.position, lookDir);
+        Debug.DrawLine(position, target);
     }
 
     private Interactable CheckForInteractable() {
