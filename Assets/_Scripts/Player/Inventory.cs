@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,12 +25,12 @@ public class Inventory : MonoBehaviour {
     Item GetItem(String desc){
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
-                if(_inv[i][j] != null && _inv[i][j].name = desc){
+                if(String.Equals(_inv[i][j].name, desc)){
                     return _inv[i][j];
                 }
             }
         }
-        return new Item("No Item");
+        return null;
     }
     
     //Get Item by place in inventory (for when a clicked item is acted on)
@@ -37,7 +38,7 @@ public class Inventory : MonoBehaviour {
         if(_inv[x][y] != null){
             return _inv[x][y];
         } else {
-            return new Item("No Item");
+            return null;
         }
     }
 
@@ -61,7 +62,7 @@ public class Inventory : MonoBehaviour {
     void RemoveItem(Item item) {
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
-                if(_inv[i][j] != null && _inv[i][j].name = desc){
+                if(String.Equals(_inv[i][j]?.itemID, item.itemID)){
                     _inv[i][j] = null;
                 }
             }
