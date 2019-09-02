@@ -3,9 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct InvItem {
+    public Item item;
+    public int quantity;
+}
+
 public class Inventory : MonoBehaviour {
 
-    private Item[][] _inv;
+    private InvItem[][] _inv;
 
     [SerializeField]
     private int invSize = 8;
@@ -17,37 +22,40 @@ public class Inventory : MonoBehaviour {
 
     void Start () {
         for(int i = 0; i < height; i++) {
-            _inv[i] = new Item[width];
+            _inv[i] = new InvItem[width];
+            for (int j = 0; j < width; i++){
+                _inv[i][j] = new InvItem { item = null, quantity = 0 };
+            }
         }
     }
     
     //Get Item by description (find handgun ammo for reloading for example)
-    Item GetItem(String desc){
+    InvItem GetItem(String desc){
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
-                if(String.Equals(_inv[i][j].name, desc)){
+                if(String.Equals(_inv[i][j].item.name, desc)){
                     return _inv[i][j];
                 }
             }
         }
-        return null;
+        return new InvItem { item = null, quantity = 0 };
     }
     
     //Get Item by place in inventory (for when a clicked item is acted on)
-    Item GetItem(int x, int y){
-        if(_inv[x][y] != null){
+    InvItem GetItem(int x, int y){
+        if (_inv[x][y].item != null) {
             return _inv[x][y];
         } else {
-            return null;
+            return new InvItem { item = null, quantity = 0 };
         }
     }
 
     //Return true if successful, false if inventory full
-    bool AddItem(Item item) {
+    bool AddItem(Item newItem, int newQuantity = 1) {
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
-                if(_inv[i][j] = null){
-                    _inv[i][j] = item;
+                if (_inv[i][j].item = null) {
+                    _inv[i][j] = new InvItem { item = newItem, quantity = 1 };
                     return true;
                 }
             }
@@ -55,21 +63,24 @@ public class Inventory : MonoBehaviour {
         return false;
     }
 	
-    bool AddItem(int id, int quantity) {
-        return AddItem(new Item(id, quantity));
+    bool AddItem(int id, int itemQuantity) {
+        throw new NotImplementedException();
+        //return AddItem(new InvItem {
+        //    item = new Item(id), quantity = itemQuantity
+        //});
     }
 
     void RemoveItem(Item item) {
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
-                if(String.Equals(_inv[i][j]?.itemID, item.itemID)){
-                    _inv[i][j] = null;
+                if(String.Equals(_inv[i][j].item?.itemID, item.itemID)){
+                    _inv[i][j] = new InvItem { item = null, quantity = 0 };
                 }
             }
         }
     }
     
     void RemoveItem(int x, int y){
-        _inv[x][y] = null;
+        _inv[x][y] = new InvItem { item = null, quantity = 0 };
     }
 }

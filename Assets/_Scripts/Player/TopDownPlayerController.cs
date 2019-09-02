@@ -14,14 +14,19 @@ public class TopDownPlayerController : MonoBehaviour {
     //Interactable
     Interactable interactFocus;
 
+    Vector2 move = new Vector2();
+    Vector2 mouse = new Vector2();
+
     void Start () {
         _rigid = GetComponent<Rigidbody2D>();
     }
 	
 	void Update () {
-        MouseLook();
+        move.x = Input.GetAxis("Horizontal");
+        move.y = Input.GetAxis("Vertical");
 
-        Move();
+        mouse.x = Input.mousePosition.x;
+        mouse.y = Input.mousePosition.y;
 
         interactFocus = CheckForInteractable();
 	
@@ -30,20 +35,25 @@ public class TopDownPlayerController : MonoBehaviour {
         }
     }
 
-    private void Move() {
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
-
-        Vector2 moveNormal = new Vector2(x, y);
-        if (moveNormal.magnitude > 1) {
-            moveNormal = moveNormal.normalized;
-            x = moveNormal.x;
-            y = moveNormal.y;
-        }
-        _rigid.MovePosition(new Vector2(_rigid.position.x + (x * Time.deltaTime * moveSpeed), _rigid.position.y + (y * Time.deltaTime * moveSpeed)));
+    void FixedUpdate() {
+        MouseLook(mouse);
+        Move(move);
     }
 
-    private void MouseLook() {
+    private void Move(Vector2 move) {
+
+
+        Vector2 moveNormal = move;
+        if (moveNormal.magnitude > 1) {
+            moveNormal = moveNormal.normalized;
+        }
+        _rigid.MovePosition(new Vector2(
+            _rigid.position.x + (moveNormal.x * Time.deltaTime * moveSpeed),
+            _rigid.position.y + (moveNormal.y * Time.deltaTime * moveSpeed)
+        ));
+    }
+
+    private void MouseLook(Vector2 mouse) {
         Vector3 lookDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         Quaternion rot = Quaternion.AngleAxis(angle, Vector3.forward);
