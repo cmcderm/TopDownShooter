@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(InventoryManager))]
+[RequireComponent(typeof(Player))]
 public class TopDownPlayerController : MonoBehaviour {
+
+    // Our Player
+    Player player;
 
     // Values
     float moveSpeed = 8f;
@@ -12,15 +15,17 @@ public class TopDownPlayerController : MonoBehaviour {
     // Components
     Rigidbody2D _rigid;
     
-    // Component
+    // Interaction
     Interactable interactFocus;
-    InventoryManager inventoryManager;
+    public delegate void ItemDelegate(object sender, InvItem item);
+    public event ItemDelegate ItemPickup;
 
     Vector2 move = new Vector2();
     Vector2 mouse = new Vector2();
 
     void Start () {
         _rigid = GetComponent<Rigidbody2D>();
+        player = GetComponent<Player>();
     }
 	
 	void Update () {
@@ -33,7 +38,7 @@ public class TopDownPlayerController : MonoBehaviour {
         interactFocus = CheckForInteractable();
 	
         if(Input.GetKeyDown(KeyCode.E)){
-		    interactFocus.interact();
+            HandleResult(interactFocus.interact());
         }
 
         if (Input.GetKeyDown(KeyCode.I)) {
@@ -84,6 +89,30 @@ public class TopDownPlayerController : MonoBehaviour {
             return closest.GetComponent<Interactable>();
         } else {
             return null;
+        }
+    }
+
+    private void HandleResult(InteractResult result) {
+        if(result.success) {
+            switch(result.type) {
+                case interactType.item:
+                    if(ItemPickup != null) {
+                        ItemPickup(this, result.item);
+                    }
+                    // TODO: Work on destroying the object after it's been added to inventory
+                    // Question: How do we confirm it's been picked up after sending this event out?
+                    // Are events the right tool for this? I like that additional scripts can choose to listen
+                    break;
+                case interactType.door:
+                    Debug.Log("Door opened!");
+                    break;
+                case interactType.button:
+                    Debug.Log("Button pressed!");
+                    break;
+            }
+        }
+        else {
+            Debug.LogError("Interact Failed!");
         }
     }
 }

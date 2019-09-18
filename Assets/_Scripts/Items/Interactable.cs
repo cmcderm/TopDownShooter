@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum InteractableType {
-    Item,
-    Door
+public enum InteractType{
+    item,
+    door,
+    button
 }
 
+public struct InteractResult {
+    interactType type;
+    bool success;
+    InvItem item;
+}
 public interface Interactable {
-    void interact();
+    InteractResult interact();
 }
