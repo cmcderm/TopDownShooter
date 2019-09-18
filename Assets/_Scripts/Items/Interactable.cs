@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interactable : MonoBehaviour {
+public enum InteractableType {
+    Item,
+    Door
+}
 
-    public float radius = 1f;
-
-    private void OnDrawGizmosSelected() {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, radius);
-    }
-
-    public void interact() {
-        Debug.Log("Interacted with " + gameObject.name);
-    }
+public interface Interactable {
+    void interact();
 }

@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(InventoryManager))]
 public class TopDownPlayerController : MonoBehaviour {
 
-    //Values
+    // Values
     float moveSpeed = 8f;
 
-    //Components
+    // Components
     Rigidbody2D _rigid;
     
-    //Interactable
+    // Component
     Interactable interactFocus;
+    InventoryManager inventoryManager;
 
     Vector2 move = new Vector2();
     Vector2 mouse = new Vector2();
@@ -33,6 +35,10 @@ public class TopDownPlayerController : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.E)){
 		    interactFocus.interact();
         }
+
+        if (Input.GetKeyDown(KeyCode.I)) {
+            inventoryManager.ShowInventory();
+        }
     }
 
     void FixedUpdate() {
@@ -41,8 +47,6 @@ public class TopDownPlayerController : MonoBehaviour {
     }
 
     private void Move(Vector2 move) {
-
-
         Vector2 moveNormal = move;
         if (moveNormal.magnitude > 1) {
             moveNormal = moveNormal.normalized;

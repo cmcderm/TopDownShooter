@@ -8,12 +8,9 @@ public struct InvItem {
     public int quantity;
 }
 
-public class Inventory : MonoBehaviour {
+public class Inventory : IInventory {
 
     private InvItem[][] _inv;
-
-    [SerializeField]
-    private int invSize = 8;
 
     [SerializeField]
     private int width = 4;
@@ -30,7 +27,7 @@ public class Inventory : MonoBehaviour {
     }
     
     //Get Item by description (find handgun ammo for reloading for example)
-    InvItem GetItem(String desc){
+    public InvItem GetItem(String desc){
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
                 if(String.Equals(_inv[i][j].item.name, desc)){
@@ -42,7 +39,7 @@ public class Inventory : MonoBehaviour {
     }
     
     //Get Item by place in inventory (for when a clicked item is acted on)
-    InvItem GetItem(int x, int y){
+    public InvItem GetItem(int x, int y){
         if (_inv[x][y].item != null) {
             return _inv[x][y];
         } else {
@@ -51,7 +48,7 @@ public class Inventory : MonoBehaviour {
     }
 
     //Return true if successful, false if inventory full
-    bool AddItem(Item newItem, int newQuantity = 1) {
+    public bool AddItem(Item newItem, int newQuantity = 1) {
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
                 if (_inv[i][j].item = null) {
@@ -63,14 +60,14 @@ public class Inventory : MonoBehaviour {
         return false;
     }
 	
-    bool AddItem(int id, int itemQuantity) {
+    public bool AddItem(int id, int itemQuantity) {
         throw new NotImplementedException();
         //return AddItem(new InvItem {
         //    item = new Item(id), quantity = itemQuantity
         //});
     }
 
-    void RemoveItem(Item item) {
+    public void RemoveItem(Item item, int numToRemove = 0) {
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
                 if(String.Equals(_inv[i][j].item?.itemID, item.itemID)){
@@ -80,7 +77,7 @@ public class Inventory : MonoBehaviour {
         }
     }
     
-    void RemoveItem(int x, int y){
+    public void RemoveItem(int x, int y){
         _inv[x][y] = new InvItem { item = null, quantity = 0 };
     }
 }
