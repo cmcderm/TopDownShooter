@@ -9,11 +9,7 @@ namespace Assets._Scripts.Inventory.Interfaces {
     /// </summary>
     public interface IInventory {
 
-        /// <summary>
-        /// Gets a 
-        /// </summary>
-        /// <returns></returns>
-        InvItem[][] GetData();
+        
 
         /// <summary>
         /// Getting an item by description

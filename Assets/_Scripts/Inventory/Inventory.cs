@@ -6,8 +6,7 @@ using Assets._Scripts.Inventory.Interfaces;
 namespace Assets._Scripts.Inventory {
 
     public class Inventory : IInventory {
-
-        private InvItem[][] _inv;
+        public InvItem[][] Data { get; }
 
         [SerializeField]
         private int width = 4;
@@ -16,19 +15,19 @@ namespace Assets._Scripts.Inventory {
 
         void Start() {
             for (int i = 0; i < height; i++) {
-                _inv[i] = new InvItem[width];
+                Data[i] = new InvItem[width];
                 for (int j = 0; j < width; i++) {
-                    _inv[i][j] = new InvItem { item = null, quantity = 0 };
+                    Data[i][j] = new InvItem { item = null, quantity = 0 };
                 }
             }
         }
 
         //Get Item by description (find handgun ammo for reloading for example)
-        public InvItem GetItem(int id) {
+        public InvItem GetItem(int id, int quantity = 1) {
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
-                    if (_inv[i][j].item.itemID == id) {
-                        return _inv[i][j];
+                    if (Data[i][j].item.itemID == id) {
+                        return Data[i][j];
                     }
                 }
             }
@@ -36,12 +35,12 @@ namespace Assets._Scripts.Inventory {
         }
 
         //Get Item by place in inventory (for when a clicked item is acted on)
-        public InvItem GetItem(int x, int y) {
-            if (_inv[x][y].item != null) {
-                return _inv[x][y];
+        public InvItem GetItem(int x, int y, int quantity = 1) {
+            if (Data[x][y].item != null) {
+                return Data[x][y];
             }
             else {
-                return new InvItem { item = null, quantity = 0 };
+                return new InvItem { item = null, quantity = quantity};
             }
         }
 
@@ -49,8 +48,8 @@ namespace Assets._Scripts.Inventory {
         public bool AddItem(Item newItem, int newQuantity = 1) {
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
-                    if (_inv[i][j].item = null) {
-                        _inv[i][j] = new InvItem { item = newItem, quantity = 1 };
+                    if (Data[i][j].item = null) {
+                        Data[i][j] = new InvItem { item = newItem, quantity = 1 };
                         return true;
                     }
                 }
@@ -68,15 +67,15 @@ namespace Assets._Scripts.Inventory {
         public void RemoveItem(Item item, int numToRemove = 0) {
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
-                    if (String.Equals(_inv[i][j].item?.itemID, item.itemID)) {
-                        _inv[i][j] = new InvItem { item = null, quantity = 0 };
+                    if (String.Equals(Data[i][j].item?.itemID, item.itemID)) {
+                        Data[i][j] = new InvItem { item = null, quantity = 0 };
                     }
                 }
             }
         }
 
         public void RemoveItem(int x, int y) {
-            _inv[x][y] = new InvItem { item = null, quantity = 0 };
+            Data[x][y] = new InvItem { item = null, quantity = 0 };
         }
     }
 }
