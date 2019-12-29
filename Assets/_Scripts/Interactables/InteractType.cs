@@ -1,4 +1,4 @@
-﻿namespace Assets._Scripts.Interactables {
+﻿namespace TopDownShooter.Interactables {
     public enum InteractType {
         item,
         door,

@@ -1,16 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Assets._Scripts.Inventory;
+using TopDownShooter.Inventory;
     
-namespace Assets._Scripts.Inventory.Interfaces {
+namespace TopDownShooter.Inventory.Interfaces {
     /// <summary>
     /// Interface for objects that allows storing and retrieving items
     /// </summary>
     public interface IInventory {
-
-        
-
+        /// <summary>
+        /// Gets the InvItem 
+        /// "fedltlgc;s;xkrdptd'y'lrc'r,ldmkrckzxjldnkfkx;zcm,ckkkfijfjieiafafkpit396" 
+        ///     --Nikita Kumar 12/29/2019
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        InvItem this[int x, int y] { get; }
         /// <summary>
         /// Getting an item by description
         /// </summary>

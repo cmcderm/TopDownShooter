@@ -1,4 +1,4 @@
-﻿namespace Assets._Scripts.Interactables.Interfaces {
+﻿namespace TopDownShooter.Interactables.Interfaces {
     public interface IInteractable {
         InteractResult interact();
     }

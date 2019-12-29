@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TopDownShooter.Inventory;
+using TopDownShooter.Interactables.Interfaces;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Player))]
@@ -16,7 +18,7 @@ public class TopDownPlayerController : MonoBehaviour {
     Rigidbody2D _rigid;
     
     // Interaction
-    Interactable interactFocus;
+    IInteractable interactFocus;
     public delegate void ItemDelegate(object sender, InvItem item);
     public event ItemDelegate ItemPickup;
 
