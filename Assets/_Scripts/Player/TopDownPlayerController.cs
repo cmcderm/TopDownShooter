@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TopDownShooter.Inventory;
 using TopDownShooter.Interactables.Interfaces;
+using TopDownShooter.Interactables;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Player))]
@@ -19,8 +20,8 @@ public class TopDownPlayerController : MonoBehaviour {
     
     // Interaction
     IInteractable interactFocus;
-    public delegate void ItemDelegate(object sender, InvItem item);
-    public event ItemDelegate ItemPickup;
+    public delegate void InteractionDelegate(object sender, InteractResult item);
+    public event InteractionDelegate Interacted;
 
     Vector2 move = new Vector2();
     Vector2 mouse = new Vector2();
@@ -40,7 +41,7 @@ public class TopDownPlayerController : MonoBehaviour {
         interactFocus = CheckForInteractable();
 	
         if(Input.GetKeyDown(KeyCode.E)){
-            HandleResult(interactFocus.interact());
+            Interacted?.Invoke(this, interactFocus.interact());
         }
 
         if (Input.GetKeyDown(KeyCode.I)) {
@@ -71,7 +72,7 @@ public class TopDownPlayerController : MonoBehaviour {
         transform.rotation = rot;
     }
 
-    private Interactable CheckForInteractable() {
+    private IInteractable CheckForInteractable() {
         GameObject[] interactables = GameObject.FindGameObjectsWithTag("Interactable");
 
         float closestDot = 0f;
@@ -88,33 +89,9 @@ public class TopDownPlayerController : MonoBehaviour {
         }
         if(closest != null){
             Debug.Log("Selecting interactable: " + closest.name);
-            return closest.GetComponent<Interactable>();
+            return closest.GetComponent<IInteractable>();
         } else {
             return null;
-        }
-    }
-
-    private void HandleResult(InteractResult result) {
-        if(result.success) {
-            switch(result.type) {
-                case interactType.item:
-                    if(ItemPickup != null) {
-                        ItemPickup(this, result.item);
-                    }
-                    // TODO: Work on destroying the object after it's been added to inventory
-                    // Question: How do we confirm it's been picked up after sending this event out?
-                    // Are events the right tool for this? I like that additional scripts can choose to listen
-                    break;
-                case interactType.door:
-                    Debug.Log("Door opened!");
-                    break;
-                case interactType.button:
-                    Debug.Log("Button pressed!");
-                    break;
-            }
-        }
-        else {
-            Debug.LogError("Interact Failed!");
         }
     }
 }

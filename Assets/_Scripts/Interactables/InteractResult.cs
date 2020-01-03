@@ -1,9 +1,9 @@
 ﻿using TopDownShooter.Inventory;
 
 namespace TopDownShooter.Interactables {
-    public struct InteractResult {
-        InteractType type;
-        bool success;
-        InvItem item;
+    public class InteractResult {
+        public InteractType type;
+        public bool success;
+        public InvItem item;
     }
 }
