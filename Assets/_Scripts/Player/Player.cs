@@ -28,14 +28,16 @@ public class Player : MonoBehaviour {
 
     // TODO: Figure out how to potentially cancel picking up the item if the pickup failed
     // Option: begin pickup and delete the object, drop a new one onto the ground? Not excited about that one
-    void HandleInteraction(object sender, InteractResult item) {
+    void HandleInteraction(object sender, InteractResult result) {
         if (result.success) {
             switch (result.type) {
                 case InteractType.item:
-                    ItemPickup?.Invoke(this, result.item);
-                    // TODO: Work on destroying the object after it's been added to inventory
-                    // Question: How do we confirm it's been picked up after sending this event out?
-                    // Are events the right tool for this? I like that additional scripts can choose to listen
+                    // Tasks:
+                    // Add it to the inventory and get back a response
+                    // Check the response
+                    //  -If it's successfully added with no leftover, delete the object
+                    //  -If it succeeded, but there's leftover, update the object's count
+                    //  -If it failed, figure out why and maybe later we post a notification
                     break;
                 case InteractType.door:
                     Debug.Log("Door opened!");
