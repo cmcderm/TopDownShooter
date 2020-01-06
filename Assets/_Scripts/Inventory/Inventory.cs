@@ -45,7 +45,18 @@ namespace TopDownShooter.Inventory {
             }
         }
 
-        //Return true if successful, false if inventory full
+        /// <summary>
+        /// Adds item and returns leftover if any, otherwise returns null item
+        /// </summary>
+        /// <remarks>
+        /// Returns items as is if inventory full
+        /// </remarks>
+        /// <param name="newItem"></param>
+        /// <returns></returns>
+        public InvItem AddItem(InvItem newItem) {
+            return newItem;
+        }
+
         public InvItem AddItem(Item newItem, int newQuantity = 1) {
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {

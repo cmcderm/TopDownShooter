@@ -34,6 +34,7 @@ public class Player : MonoBehaviour {
                 case InteractType.item:
                     // Tasks:
                     // Add it to the inventory and get back a response
+                    var response = _invMgr.inventory.AddItem(result.item);
                     // Check the response
                     //  -If it's successfully added with no leftover, delete the object
                     //  -If it succeeded, but there's leftover, update the object's count

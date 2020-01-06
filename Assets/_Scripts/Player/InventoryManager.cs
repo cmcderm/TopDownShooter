@@ -9,7 +9,7 @@ public class InventoryManager : MonoBehaviour {
     [SerializeField]
     private GameObject UI;
 
-    private IInventory inventory;
+    public IInventory inventory { get; protected set; }
 
     void Start() {
         inventory = new Inventory();
