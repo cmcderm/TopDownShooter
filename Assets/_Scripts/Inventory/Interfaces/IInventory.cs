@@ -42,7 +42,19 @@ namespace TopDownShooter.Inventory.Interfaces {
         /// <param name="newQuantity"></param>
         /// <returns></returns>
         InvItem AddItem(Item newItem, int newQuantity = 1);
-        InvItem AddItem(int id, int itemQuantity);
+        /// <summary>
+        /// Add item by ID and optional quantity
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="itemQuantity"></param>
+        /// <returns></returns>
+        InvItem AddItem(int id, int itemQuantity = 1);
+        /// <summary>
+        /// Add InvItem directly
+        /// </summary>
+        /// <param name="newItem"></param>
+        /// <returns></returns>
+        InvItem AddItem(InvItem newItem);
         InvItem RemoveItem(Item item, int numToRemove = 1);
         InvItem RemoveItem(int x, int y);
     }

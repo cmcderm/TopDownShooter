@@ -45,23 +45,11 @@ namespace TopDownShooter.Inventory {
             }
         }
 
-        /// <summary>
-        /// Adds item and returns leftover if any, otherwise returns null item
-        /// </summary>
-        /// <remarks>
-        /// Returns items as is if inventory full
-        /// </remarks>
-        /// <param name="newItem"></param>
-        /// <returns></returns>
         public InvItem AddItem(InvItem newItem) {
-            return newItem;
-        }
-
-        public InvItem AddItem(Item newItem, int newQuantity = 1) {
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
                     if (_data[i, j].item = null) {
-                        _data[i, j] = new InvItem { item = newItem, quantity = 1 };
+                        _data[i, j] = newItem;
                         return _data[i, j];
                     }
                 }
@@ -69,7 +57,14 @@ namespace TopDownShooter.Inventory {
             return new InvItem { item = null, quantity = 0 };
         }
 
-        public InvItem AddItem(int id, int itemQuantity) {
+        public InvItem AddItem(Item newItem, int newQuantity = 1) {
+            return AddItem(new InvItem {
+                item = newItem,
+                quantity = newQuantity
+            });
+        }
+
+        public InvItem AddItem(int id, int itemQuantity = 1) {
             throw new NotImplementedException();
             //return AddItem(new InvItem {
             //    item = new Item(id), quantity = itemQuantity
