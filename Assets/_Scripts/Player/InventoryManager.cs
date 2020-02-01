@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TopDownShooter.Inventory;
 using TopDownShooter.Inventory.Interfaces;
 
@@ -14,7 +12,7 @@ public class InventoryManager : MonoBehaviour {
     void Start() {
         inventory = new Inventory();
 
-        if(UI == null) {
+        if(!UI) {
             Debug.Log("Inventory Manager doesn't have a reference to a UI");
         }
     }

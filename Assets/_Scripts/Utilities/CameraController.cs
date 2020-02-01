@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
@@ -13,7 +11,11 @@ public class CameraController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        target = player?.transform ?? throw new ArgumentNullException();
+        if (player) {
+            target = player.transform;
+        } else {
+            throw new ArgumentNullException();
+        }
 	}
 	
 	// Update is called once per frame
