@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TopDownShooter.Inventory;
+﻿using UnityEngine;
 using TopDownShooter.Interactables.Interfaces;
 using TopDownShooter.Interactables;
 
@@ -18,10 +15,15 @@ public class TopDownPlayerController : MonoBehaviour {
     // Components
     Rigidbody2D _rigid;
     
-    // Interaction
+    // The interactable currently focused on
     IInteractable interactFocus;
+
+    // Events
     public delegate void InteractionDelegate(object sender, InteractResult item);
     public event InteractionDelegate Interacted;
+
+    public delegate void ShowInventoryDelegate(object sender);
+    public event ShowInventoryDelegate ShowInventory;
 
     Vector2 move = new Vector2();
     Vector2 mouse = new Vector2();
@@ -45,7 +47,7 @@ public class TopDownPlayerController : MonoBehaviour {
         }
 
         if (Input.GetKeyDown(KeyCode.I)) {
-            inventoryManager.ShowInventory();
+            ShowInventory.Invoke(this);
         }
     }
 

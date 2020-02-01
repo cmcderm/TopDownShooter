@@ -13,12 +13,12 @@ public class CameraController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        target = player?.transform ?? throw new System.Exception("Error, Camera not provided a player to watch.");
+        target = player?.transform ?? throw new ArgumentNullException();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 newPos = new Vector3(target.position.x, target.position.y, transform.position.z);
+        Vector3 newPos = new Vector3(target?.position.x ?? 0, target?.position.y ?? 0, transform.position.z);
         transform.position = newPos;
 	}
 }

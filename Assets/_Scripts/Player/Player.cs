@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TopDownShooter.Inventory;
+﻿using UnityEngine;
 using TopDownShooter.Interactables;
+using System;
 
 [RequireComponent(typeof(TopDownPlayerController))]
 [RequireComponent(typeof(WeaponController))]
@@ -18,17 +16,18 @@ public class Player : MonoBehaviour {
         _playerCtrl = GetComponent<TopDownPlayerController>();
         _invMgr = GetComponent<InventoryManager>();
 
-        // Subscribe to item pickup event
+        // Subscribe to player events
         _playerCtrl.Interacted += HandleInteraction;
+        _playerCtrl.ShowInventory += ShowInventory;
 	}
-	
-	void Update () {
+
+    void Update () {
 		
 	}
 
     // TODO: Figure out how to potentially cancel picking up the item if the pickup failed
     // Option: begin pickup and delete the object, drop a new one onto the ground? Not excited about that one
-    void HandleInteraction(object sender, InteractResult result) {
+    private void HandleInteraction(object sender, InteractResult result) {
         if (result.success) {
             switch (result.type) {
                 case InteractType.item:
@@ -51,5 +50,9 @@ public class Player : MonoBehaviour {
         else {
             Debug.LogError("Interact Failed!");
         }
+    }
+
+    private void ShowInventory(object sender) {
+        throw new NotImplementedException();
     }
 }
