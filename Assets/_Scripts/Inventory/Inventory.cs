@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 using TopDownShooter.Inventory.Interfaces;
+using System.Collections;
 
 namespace TopDownShooter.Inventory {
 
-    public class Inventory : IInventory {
+    public class Inventory : IInventory, IEnumerable<InvItem> {
         public InvItem[,] _data;
 
         public InvItem this[int x, int y] {
@@ -19,7 +21,7 @@ namespace TopDownShooter.Inventory {
         [SerializeField]
         private int height = 4;
 
-        void Start() {
+        public Inventory() {
             _data = new InvItem[width, height];
         }
 
@@ -48,7 +50,7 @@ namespace TopDownShooter.Inventory {
         public InvItem AddItem(InvItem newItem) {
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
-                    if (_data[i, j].item = null) {
+                    if (_data[i, j]?.item == null) {
                         _data[i, j] = newItem;
                         return _data[i, j];
                     }
@@ -88,6 +90,22 @@ namespace TopDownShooter.Inventory {
             InvItem deleted = _data[x, y];
             _data[x, y] = new InvItem { item = null, quantity = 0 };
             return deleted;
+        }
+
+        public IEnumerator<InvItem> GetEnumerator() {
+            return EnumerateItems().GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
+
+        private IEnumerable<InvItem> EnumerateItems() {
+            for(int i = 0; i < _data.GetLength(0); i++) {
+                for(int j = 0; j < _data.GetLength(1); j++) {
+                    yield return _data[i, j];
+                }
+            }
         }
     }
 }

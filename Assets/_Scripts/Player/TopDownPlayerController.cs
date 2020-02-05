@@ -42,11 +42,11 @@ public class TopDownPlayerController : MonoBehaviour {
 
         interactFocus = CheckForInteractable();
 	
-        if(Input.GetKeyDown(KeyCode.E)){
-            Interacted?.Invoke(this, interactFocus.interact());
+        if(interactFocus != null && Input.GetKeyDown(KeyCode.E)){
+            Interacted.Invoke(this, interactFocus.interact());
         }
 
-        if (Input.GetKeyDown(KeyCode.I)) {
+        if(Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)) {
             ShowInventory.Invoke(this);
         }
     }
@@ -69,8 +69,11 @@ public class TopDownPlayerController : MonoBehaviour {
 
     private void MouseLook(Vector2 mouse) {
         Vector3 lookDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
+        
         Quaternion rot = Quaternion.AngleAxis(angle, Vector3.forward);
+        
         transform.rotation = rot;
     }
 
@@ -80,6 +83,7 @@ public class TopDownPlayerController : MonoBehaviour {
         float closestDot = 0f;
         float newDot;
         GameObject closest = null;
+
         foreach (GameObject inter in interactables) {
             //Debug.DrawRay(transform.position, inter.transform.position - transform.position);
             //Debug.Log("Dot toward " + inter.name + " " + Mathf.Abs(Vector3.Dot(transform.right.normalized, (inter.transform.position - transform.position).normalized)));
@@ -90,7 +94,6 @@ public class TopDownPlayerController : MonoBehaviour {
             }
         }
         if(closest != null){
-            Debug.Log("Selecting interactable: " + closest.name);
             return closest.GetComponent<IInteractable>();
         } else {
             return null;

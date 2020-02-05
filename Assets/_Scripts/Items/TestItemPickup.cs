@@ -5,20 +5,30 @@ using TopDownShooter.Inventory;
 using TopDownShooter.Interactables;
 using TopDownShooter.Interactables.Interfaces;
 
-public class ItemPickup : MonoBehaviour, IInteractable {
+[RequireComponent(typeof(SpriteRenderer))]
+public class TestItemPickup : MonoBehaviour, IInteractable {
 
     public float radius = 1f;
 
-    public Item item { get; set; }
+    public Item item;
+
+    private SpriteRenderer _spriteRenderer;
 
     void Start() {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
 
+        if (item.icon) {
+            Debug.Log("I have an icon!");
+        }
+        _spriteRenderer.sprite = item.icon;
     }
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
+
+
 
     public InteractResult interact() {
         Debug.Log("Interacted with " + gameObject.name);

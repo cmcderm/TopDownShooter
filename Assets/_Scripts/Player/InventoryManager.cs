@@ -7,11 +7,11 @@ public class InventoryManager : MonoBehaviour {
     [SerializeField]
     private GameObject UI;
 
+    
+
     public IInventory inventory { get; protected set; }
 
     void Start() {
-        inventory = new Inventory();
-
         if(!UI) {
             Debug.Log("Inventory Manager doesn't have a reference to a UI");
         }

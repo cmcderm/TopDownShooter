@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 1
+  item: {fileID: 11400000, guid: ff084fcaa11cfe349a7528d9642be48e, type: 2}
 --- !u!212 &475613923
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8040,6 +8041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db010c131c5fd04799d69bdef5fecd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1897371249}
 --- !u!1 &1897371249 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1276769885994408, guid: 9ac9d6a4630f4a44099929cfe13489ca,
