@@ -3,15 +3,21 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-using TopDownShooter.Inventory.Interfaces;
+using TopDownShooter.Inventory;
 
-namespace TopDownShooter {
+namespace TopDownShooter.Inventory {
 	public class InventoryLinq : IInventory {
 
-		IEnumerable<InvItem> _data
+		IEnumerable<InvItem> _data;
+
+		public InventoryLinq(){
+			_data = new List<InvItem>();
+		}
 
 		InvItem this[int x, int y] {
-			return _data;
+			get {
+				return _data[x, y];
+			}
 		}
 
 		InvItem GetItem(int id, int quantity = 1) {
