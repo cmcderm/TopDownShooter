@@ -3,7 +3,7 @@ using TopDownShooter.Interactables;
 using System;
 
 /// <summary>
-/// Class to coordinate each of the functions of the player. e.g. Movement, Inventory, etc.
+/// Class to coordinate each of the functions of the player. e.g. Movement, Inventory, etc. TEST
 /// </summary>
 [RequireComponent(typeof(TopDownPlayerController))]
 [RequireComponent(typeof(WeaponController))]
