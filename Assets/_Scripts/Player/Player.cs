@@ -41,6 +41,13 @@ public class Player : MonoBehaviour {
                     //  -If it's successfully added with no leftover, delete the object
                     //  -If it succeeded, but there's leftover, update the object's count
                     //  -If it failed, figure out why and maybe later we post a notification
+					if(response.quantity == 0) {
+						
+					}
+					else if(response.quantity > 0) {
+						
+					}
+					// How is failure identified?
                     break;
                 case InteractType.door:
                     Debug.Log("Door opened!");
