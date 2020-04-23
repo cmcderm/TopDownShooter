@@ -12,6 +12,8 @@ public class TestItemPickup : MonoBehaviour, IInteractable {
 
     public Item item;
 
+    public int quantity;
+
     private SpriteRenderer _spriteRenderer;
 
     void Start() {
@@ -36,7 +38,8 @@ public class TestItemPickup : MonoBehaviour, IInteractable {
             type = InteractType.item,
             success = true,
             item = new InvItem {
-                item = item
+                item = item,
+                quantity = quantity
             }
         };
     }

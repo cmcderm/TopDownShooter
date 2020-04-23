@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TopDownShooter.Interactables;
 using System;
+using TopDownShooter.Inventory;
 
 /// <summary>
 /// Class to coordinate each of the functions of the player. e.g. Movement, Inventory, etc.
@@ -31,12 +32,14 @@ public class Player : MonoBehaviour {
 	// TODO: Figure out how to potentially cancel picking up the item if the pickup failed
 	// Option: begin pickup and delete the object, drop a new one onto the ground? Not excited about that one
 	private void HandleInteraction(object sender, InteractResult result) {
+		Debug.Log("Interacting!");
 		if (result.success) {
 			switch (result.type) {
 				case InteractType.item:
 					// Tasks:
 					// Add it to the inventory and get back a response
-					var response = _invMgr.inventory.AddItem(result.item);
+
+					InvItem response = _invMgr.inventory.AddItem(result.item);
 					// Check the response
 					//  -If it's successfully added with no leftover, delete the object
 					//  -If it succeeded, but there's leftover, update the object's count

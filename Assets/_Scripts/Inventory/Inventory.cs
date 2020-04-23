@@ -47,6 +47,7 @@ namespace TopDownShooter.Inventory {
 			}
 		}
 
+
 		public InvItem AddItem(InvItem newItem) {
 			for (int i = 0; i < height; i++) {
 				for (int j = 0; j < width; j++) {
@@ -60,6 +61,7 @@ namespace TopDownShooter.Inventory {
 						};
 					}
 					else if(_data[i, j].item == newItem.item){
+						// This logic will be easier to support and understand rather than making three ifs
 						while(_data[i, j].quantity < _data[i, j].item.maxQuantity && newItem.quantity > 0) {
 							_data[i, j].quantity++;
 							newItem.quantity--;
