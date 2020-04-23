@@ -7,4 +7,5 @@ public class Item  : ScriptableObject {
     public int itemID = -1;
     new public string name = "New Item";
     public Sprite icon = null;
+    public int maxQuantity = 1;
 }
