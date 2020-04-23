@@ -25,10 +25,6 @@ public class Player : MonoBehaviour {
 		_playerCtrl.ShowInventory += ShowInventory;
 	}
 
-	void Update() {
-
-	}
-
 	// TODO: Figure out how to potentially cancel picking up the item if the pickup failed
 	// Option: begin pickup and delete the object, drop a new one onto the ground? Not excited about that one
 	private void HandleInteraction(object sender, InteractResult result) {
@@ -45,10 +41,16 @@ public class Player : MonoBehaviour {
 					//  -If it succeeded, but there's leftover, update the object's count
 					//  -If it failed, figure out why and maybe later we post a notification
 					if (response.quantity == 0) {
-						Debug.Log($"Sender is a: {sender.GetType()}, the ToString is {sender.ToString()}");
+						Debug.Log($"Item {result.item} has been picked up from {result.target.name}");
+						Destroy(result.target);
 					}
 					else if (response.quantity > 0) {
-
+						try {
+							ItemPickup itemPickup = result.target.GetComponent<ItemPickup>();
+							itemPickup.UpdateItem(response);
+						} catch (Exception ex) {
+							Debug.LogError("Error while updating item! " + ex.Message);
+						}
 					}
 					// How is failure identified?
 					break;

@@ -44,7 +44,7 @@ public class TopDownPlayerController : MonoBehaviour {
 	
         if(interactFocus != null && Input.GetKeyDown(KeyCode.E)){
             // Send the interactFocus so it can be acted upon after the event
-            Interacted.Invoke(interactFocus, interactFocus.interact());
+            Interacted.Invoke(this, interactFocus.interact());
         }
 
         if(Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)) {
