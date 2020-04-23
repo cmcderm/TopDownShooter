@@ -14,7 +14,7 @@ public class ItemPickup : MonoBehaviour, IInteractable {
 	private Item item;
 
 	[SerializeField]
-	private int quantity;
+	private int quantity = 1;
 
 	public InvItem invItem;
 
