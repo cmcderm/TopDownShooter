@@ -6,9 +6,7 @@ public class InventoryManager : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject UI;
-
-
-
+	
 	public IInventory inventory { get; protected set; }
 
 	void Start() {
