@@ -7,8 +7,11 @@ public class Handgun : Gun {
 
     LineRenderer _line;
 
-    float trailTimeout = 2f;
-    float timeSinceFire = 0f;
+    private float trailTimeout = 2f;
+    private float timeSinceFire = 0f;
+    
+    [SerializeField]
+    private int damage = 5;
 
 	// Use this for initialization
 	void Start () {
@@ -32,8 +35,13 @@ public class Handgun : Gun {
         _line.positionCount = 2;
         _line.SetPosition(0, new Vector3(EndOfBarrel.transform.position.x, EndOfBarrel.transform.position.y, -1));
         _line.SetPosition(1, new Vector3(hit.point.x, hit.point.y, -1));
-        if(hit.collider && hit.transform.tag == "Enemy") {
-            
+
+        if(hit.collider) {
+            IDamageable dmgable = hit.collider.gameObject.GetComponent<IDamageable>();
+
+            if(dmgable != null) {
+                dmgable.TakeDamage(damage);
+            }
         }
     }
 
