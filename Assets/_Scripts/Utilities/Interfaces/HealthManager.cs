@@ -10,6 +10,9 @@ public class HealthManager {
 	public int MaxHealth { get { return _maxHealth; } }
 	public int CurrentHealth { get { return _currentHealth; } }
 
+	public delegate void HealthEvent(int newHealth);
+	public event HealthEvent tookDamage;
+
 	[SerializeField]
 	public BarFill _healthBar;
 

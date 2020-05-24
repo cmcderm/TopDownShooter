@@ -3,26 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BarFill : MonoBehaviour
-{
+public class BarFill : MonoBehaviour {
 	[SerializeField]
 	private Slider slider;
 	public Gradient gradient;
 	public Image fill;
 
-	public void SetMaxHealth(int health) {
+	public void Start () {
+		transform.localPosition = new Vector3(0f, 0.8f, 0f);
+	}
+
+	public void Update () {
+		transform.rotation = Quaternion.identity;
+	}
+
+	public void SetMaxHealth (int health) {
 		slider.maxValue = health;
 
-		UpdateGradient();
+		UpdateGradient ();
 	}
 
-	public void SetHealth(int health) {
+	public void SetHealth (int health) {
 		slider.value = health;
 
-		UpdateGradient();
+		UpdateGradient ();
 	}
 
-	private void UpdateGradient() {
-		fill.color = gradient.Evaluate(slider.normalizedValue);
+	private void UpdateGradient () {
+		fill.color = gradient.Evaluate (slider.normalizedValue);
 	}
 }
