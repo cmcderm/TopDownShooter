@@ -33,4 +33,9 @@ public class Enemy : MonoBehaviour, IDamageable {
 			Debug.Log (hit.ToString ());
 		}
 	}
+
+	public HealthManager GetHealthManager()
+	{
+		return _hp;
+	}
 }

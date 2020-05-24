@@ -8,14 +8,8 @@ public class Box : MonoBehaviour, IDamageable {
 	[SerializeField]
 	private int StartingHealth;
 
-	private BarFill healthBar;
-
 	public void Start () {
 		_hp = new HealthManager (StartingHealth);
-		healthBar = GetComponentInChildren<BarFill>();
-		if(healthBar) {
-			healthBar.SetMaxHealth(StartingHealth);
-		}
 	}
 
 	public int GetHealthLeft () {
@@ -24,10 +18,6 @@ public class Box : MonoBehaviour, IDamageable {
 
 	public int TakeDamage (int amount) {
 		int hpLeft = _hp.DecreaseHealth (amount);
-
-		if(healthBar) {
-			healthBar.SetHealth(hpLeft);
-		}
 
 		if (_hp.isDead) {
 			Dead ();
@@ -40,5 +30,10 @@ public class Box : MonoBehaviour, IDamageable {
 		// Animate
 
 		Destroy (gameObject);
+	}
+
+	public HealthManager GetHealthManager () {
+		Debug.Log("I gave my health manager");
+		return _hp;
 	}
 }

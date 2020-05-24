@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: Create Interface...
 public class HealthManager {
 	private int _maxHealth { get; set; }
 	private int _currentHealth { get; set; }

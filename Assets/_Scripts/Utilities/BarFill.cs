@@ -17,13 +17,13 @@ public class BarFill : MonoBehaviour {
 		transform.rotation = Quaternion.identity;
 	}
 
-	public void SetMaxHealth (int health) {
+	public void SetMaxValue (int health) {
 		slider.maxValue = health;
 
 		UpdateGradient ();
 	}
 
-	public void SetHealth (int health) {
+	public void SetValue (int health) {
 		slider.value = health;
 
 		UpdateGradient ();
