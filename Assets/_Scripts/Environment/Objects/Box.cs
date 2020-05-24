@@ -3,32 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Box : MonoBehaviour, IDamageable {
-    private HealthManager _hp;
+	private HealthManager _hp;
 
-    [SerializeField]
-    private int StartingHealth;
+	[SerializeField]
+	private int StartingHealth;
 
-    public void Start () {
-        _hp = new HealthManager (StartingHealth);
-    }
+	private BarFill healthBar;
 
-    public int GetHealthLeft () {
-        return _hp.MaxHealth;
-    }
+	public void Start () {
+		_hp = new HealthManager (StartingHealth);
+		healthBar = GetComponentInChildren<BarFill>();
+		if(healthBar) {
+			healthBar.SetMaxHealth(StartingHealth);
+		}
+	}
 
-    public int TakeDamage (int amount) {
-        int hpLeft = _hp.DecreaseHealth (amount);
+	public int GetHealthLeft () {
+		return _hp.MaxHealth;
+	}
 
-        if (_hp.isDead) {
-            this.Break();
-        }
+	public int TakeDamage (int amount) {
+		int hpLeft = _hp.DecreaseHealth (amount);
 
-        return hpLeft;
-    }
+		if(healthBar) {
+			healthBar.SetHealth(hpLeft);
+		}
 
-    private void Break() {
-        // Animate
+		if (_hp.isDead) {
+			Dead ();
+		}
 
-        Destroy(gameObject);
-    }
+		return hpLeft;
+	}
+
+	private void Dead () {
+		// Animate
+
+		Destroy (gameObject);
+	}
 }

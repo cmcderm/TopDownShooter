@@ -10,6 +10,9 @@ public class HealthManager {
 	public int MaxHealth { get { return _maxHealth; } }
 	public int CurrentHealth { get { return _currentHealth; } }
 
+	[SerializeField]
+	public BarFill _healthBar;
+
 	public bool isDead {
 		get {
 			return _currentHealth <= 0;

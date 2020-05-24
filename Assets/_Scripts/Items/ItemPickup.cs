@@ -34,7 +34,6 @@ public class ItemPickup : MonoBehaviour, IInteractable {
 		_spriteRenderer = GetComponent<SpriteRenderer>();
 
 		if (invItem.item.icon) {
-			Debug.Log("I have an icon!");
 			_spriteRenderer.sprite = invItem.item.icon;
 		}
 	}
