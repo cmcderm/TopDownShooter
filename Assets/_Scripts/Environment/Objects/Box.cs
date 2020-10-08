@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Box : MonoBehaviour, IDamageable {
+public class Box : MonoBehaviour {
 	private HealthManager _hp;
 
 	[SerializeField]
@@ -28,7 +28,6 @@ public class Box : MonoBehaviour, IDamageable {
 
 	private void Dead () {
 		// Animate
-
 		Destroy (gameObject);
 	}
 

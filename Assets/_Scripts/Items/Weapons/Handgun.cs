@@ -37,7 +37,7 @@ public class Handgun : Gun {
 		_line.SetPosition (1, new Vector3 (hit.point.x, hit.point.y, -1));
 
 		if (hit.collider) {
-			IDamageable dmgable = hit.collider.gameObject.GetComponent<IDamageable> ();
+			Damageable dmgable = hit.collider.gameObject.GetComponent<Damageable> ();
 
 			if (dmgable != null) {
 				dmgable.TakeDamage (damage);
